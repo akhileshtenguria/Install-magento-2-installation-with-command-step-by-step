@@ -1,0 +1,57 @@
+Magento 2 Installation steps 
+
+
+1) create virtual in ubuntu create file in site-available folder example.com.conf file and hosts
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf
+
+A) create file example.com.conf file->  example.com.conf
+-- add this below code in above file
+    ServerName example.com
+    ServerAlias example.com
+
+    ServerAdmin magento2@test2.com
+    DocumentRoot /var/www/html/example/pub
+
+    <Directory /var/www/html/example/>
+               Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+    </Directory>
+B) hosts file add this code 
+127.0.0.1	example.com
+
+
+
+2) Download Command ===>
+composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3
+
+
+3) Installation Command ===>
+php bin/magento setup:install --base-url="http://example.com/" --db-host="localhost" --db-name="example.com" --db-user="dbusername" --db-password='db-password' --admin-firstname="admin" --admin-lastname="admin" --admin-email="admin@admin.com" --admin-user="admin" --admin-password="admin123" --language="en_US" --currency="USD" --timezone="America/Chicago" --use-rewrites="1" --backend-frontname="admin"
+
+
+-- OR--
+
+bin/magento setup:install \
+--base-url=http://localhost/mage243p1 \
+--db-host=localhost \
+--db-name=mage243p1 \
+--db-user=zestard \
+--db-password=Zestard@123 \
+--admin-firstname=admin \
+--admin-lastname=admin \
+--admin-email=admin@admin.com \
+--admin-user=admin \
+--admin-password=admin123 \
+--language=en_US \
+--currency=USD \
+--timezone=America/Chicago \
+--use-rewrites=1 \
+--search-engine=elasticsearch7 \
+--elasticsearch-host=localhost \
+--elasticsearch-port=9200
+
+
+
+4) php bin/magento module:disable Magento_TwoFactorAuth
